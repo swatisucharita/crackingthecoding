@@ -1,21 +1,74 @@
-console.log(a); // ReferenceError: a is not defined
+
+// Global scope
+console.log(a); // Undefined
+console.log(typeof testGlobal); // undefined
 var a = 67;
-function testVars(){
-    a = 25;
-    console.log(test1); // function: Hoisted
+function testGlobal() { console.log("Testing Hoisting in Global scope"); }
+
+// Local scope
+function testHoisting(){
+    console.log(test1); // undefined
+    console.log(typeof testLocal); // undefined
     var test1 = 25;
-    function test1(r) { console.log("function"); }
+    var testLocal = function() { console.log("Testing Hoisting in local scope"); }
     console.log(test1 === 25); // true
 }
-testVars();
+testHoisting();
 
-function testExpression() {
-    console.log(test2); // undefined: Hoisted
-    var test1 = 25;
-    var test2 = (r) => { console.log("function"); }
-    console.log(typeof test1 === "function") // true
+// Global scope 
+var a;
+var testGlobal;
+console.log(a); // Undefined
+console.log(typeof testGlobal); // undefined
+a = 67;
+testGlobal = function() { console.log("Testing Hoisting in Global scope"); }
+console.log(typeof testGlobal) // function
+
+// Local scope
+function testHoisting(){
+    var test1;
+    var testLocal;
+    console.log(test1); // Undefined
+    console.log(typeof testLocal); // function
+    test1 = 25;
+    testLocal = function() { console.log("Testing Hoisting in local scope"); }
+    console.log(test1); // 25
+    console.log(typeof testLocal) // function
 }
-testExpression();
+testHoisting();
+
+function testFunctions(){
+    var test = 12;
+    function test() { console.log("testing hoisting for functions"); }
+    console.log(test); // 12
+}
+testFunctions();
+
+function testExpressions(){
+    var test = 12;
+    test = function(){ console.log("Testing hoisting for expressions"); }
+    console.log(test); // function
+}
+testExpressions();
+
+// Explained
+function testFunctions(){
+    var test;
+    function test() { console.log("testing hoisting for functions"); }
+
+    test = 12;
+    console.log(test); // 12
+}
+testFunctions();
+
+function testExpressions(){
+    var test;
+
+    test = 12;
+    test = function(){ console.log("Testing hoisting for expressions"); }
+    console.log(test); // function
+}
+testExpressions();
 
 // function testLet(){
 //     console.log(test2); // ReferenceError: Cannot access 'test2' before initialization
@@ -37,3 +90,10 @@ testExpression();
 //         this.model = model;
 //     }
 // }
+
+let c = new Car("test");
+console.log(c.type === "test");
+
+function Car(type) {
+    this.type = type;
+}
